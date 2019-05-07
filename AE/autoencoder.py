@@ -69,19 +69,6 @@ def graph_input(num_input):
 
 
 def trainable_variables(num_input, num_hidden, num_bottleneck, num_layer):
-    # weights = {
-    #     'encoder_h1': tf.Variable(tf.random_normal([num_input, num_hidden])),
-    #     'encoder_h2': tf.Variable(tf.random_normal([num_hidden, num_bottleneck])),
-    #     'decoder_h1': tf.Variable(tf.random_normal([num_bottleneck, num_hidden])),
-    #     'decoder_h2': tf.Variable(tf.random_normal([num_hidden, num_input])),
-    # }
-    # biases = {
-    #     'encoder_b1': tf.Variable(tf.random_normal([num_hidden])),
-    #     'encoder_b2': tf.Variable(tf.random_normal([num_bottleneck])),
-    #     'decoder_b1': tf.Variable(tf.random_normal([num_hidden])),
-    #     'decoder_b2': tf.Variable(tf.random_normal([num_input])),
-    # }
-
     weights = {}
     biases = {}
     # for now, all hidden layers have the same number of units (except the bottleneck)
@@ -108,13 +95,6 @@ def autoencoder(num_input, num_hidden, num_bottleneck, num_layers):
     X = graph_input(num_input)
     weights, biases = trainable_variables(num_input, num_hidden, num_bottleneck, num_layers)
 
-    # # Encoder Hidden layer with sigmoid activation #1
-    # encoder_layer_1 = tf.nn.sigmoid(tf.add(tf.matmul(X, weights['encoder_h1']),
-    #                                biases['encoder_b1']))
-    # # Encoder Hidden layer with sigmoid activation #2
-    # encoder_layer_2 = tf.nn.sigmoid(tf.add(tf.matmul(encoder_layer_1, weights['encoder_h2']),
-    #                                biases['encoder_b2']))
-
     current_input = X
     layers = {}
     for layer in range(num_layers):
@@ -130,14 +110,6 @@ def autoencoder(num_input, num_hidden, num_bottleneck, num_layers):
         current_input = layers['decoder_layer_' + str(layer + 1)]
 
     reconstruction = layers['decoder_layer_' + str(num_layers)]
-
-    # # Decoder Hidden layer with sigmoid activation #1
-    # decoder_layer_1 = tf.nn.sigmoid(tf.add(tf.matmul(encoding, weights['decoder_h1']),
-    #                                biases['decoder_b1']))
-    # # Decoder Hidden layer with sigmoid activation #2
-    # decoder_layer_2 = tf.nn.sigmoid(tf.add(tf.matmul(decoder_layer_1, weights['decoder_h2']),
-    #                                biases['decoder_b2'])) # sigmoid activation at the output of decoder only makes
-    # sense if the input is normalised
 
     return X, encoding, reconstruction
 
