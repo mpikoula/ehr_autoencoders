@@ -11,9 +11,9 @@ with default parameters specified in the FLAGS in `autoencoder.py`.
 A folder will be created in the current directory. In the folder checkpoints
 of the model will be saved at different times during training. The successive batch
 and epoch losses will be saved in a pickle file. Finally, some printout will be written
-during training onto a text filel. 
+during training onto a text file. 
 
-To specify any hyperparameters, one can add option to the command as follows:
+To specify any hyperparameters, one can add options to the command as follows:
 
 `>> python autoencoder.py --num_epochs 30 --num_layers 4 --num_bottleneck_units 3 --train_dir '4layers_AE' `
 
